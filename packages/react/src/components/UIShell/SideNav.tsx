@@ -80,6 +80,7 @@ function SideNavRenderFunction(
     onOverlayClick,
     onSideNavBlur,
     enterDelayMs = 100,
+    inert,
     ...other
   }: SideNavProps & ComponentProps<'nav'>,
   ref: ForwardedRef<HTMLElement>
@@ -240,7 +241,11 @@ function SideNavRenderFunction(
         tabIndex={-1}
         ref={navRef}
         className={`${prefix}--side-nav__navigation ${className}`}
-        inert={!isRail ? !(expanded || isLg) : undefined}
+        inert={
+          inert || (!isRail ? !(expanded || isLg) : undefined) === true
+            ? ('' as any)
+            : undefined
+        }
         {...accessibilityLabel}
         {...eventHandlers}
         {...other}>
